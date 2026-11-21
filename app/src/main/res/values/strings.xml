@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SaveTrack</string>
+    <string name="home_title">SaveTrack</string>
+    <string name="total_savings_title">Total Savings</string>
+    <string name="btn_add_this_week">Add This Week</string>
+    <string name="btn_weekly_history">Weekly History</string>
+    <string name="add_week_title">Add This Week</string>
+    <string name="history_title">Weekly History</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="cd_add_icon">Add icon</string>
+    <string name="cd_history_icon">History icon</string>
+    <string name="cd_back_button">Back</string>
 </resources>
