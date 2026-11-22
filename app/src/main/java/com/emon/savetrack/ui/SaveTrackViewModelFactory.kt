@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.emon.savetrack.data.repository.TransactionRepository
 import com.emon.savetrack.ui.addweek.AddWeekViewModel
+import com.emon.savetrack.ui.history.HistoryViewModel
 import com.emon.savetrack.ui.home.HomeViewModel
 
 /**
@@ -21,6 +22,9 @@ class SaveTrackViewModelFactory(
             }
             modelClass.isAssignableFrom(AddWeekViewModel::class.java) -> {
                 AddWeekViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

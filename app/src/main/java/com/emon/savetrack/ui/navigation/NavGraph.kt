@@ -14,6 +14,7 @@ import com.emon.savetrack.ui.SaveTrackViewModelFactory
 import com.emon.savetrack.ui.addweek.AddWeekScreen
 import com.emon.savetrack.ui.addweek.AddWeekViewModel
 import com.emon.savetrack.ui.history.HistoryScreen
+import com.emon.savetrack.ui.history.HistoryViewModel
 import com.emon.savetrack.ui.home.HomeScreen
 import com.emon.savetrack.ui.home.HomeViewModel
 
@@ -65,8 +66,10 @@ fun AppNavHost(
 
         // Route 3: History screen
         composable(Screen.History.route) {
+            val historyViewModel: HistoryViewModel = viewModel(factory = factory)
             HistoryScreen(
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                viewModel = historyViewModel
             )
         }
     }

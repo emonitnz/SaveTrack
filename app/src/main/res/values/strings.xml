@@ -28,4 +28,9 @@
     <string name="label_saved">Saved</string>
     <string name="label_saving_rate">Saving Rate</string>
     <string name="no_expenses_this_week">No expenses logged for this week</string>
+    <string name="history_empty">No history yet. Add your first week!</string>
+    <string name="history_percent">Spent %1$.1f%% · Saved %2$.1f%%</string>
+    <string name="history_no_earnings">No earnings logged this week</string>
+    <string name="cd_expand">Show expenses</string>
+    <string name="cd_collapse">Hide expenses</string>
 </resources>
