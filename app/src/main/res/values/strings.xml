@@ -10,4 +10,22 @@
     <string name="cd_add_icon">Add icon</string>
     <string name="cd_history_icon">History icon</string>
     <string name="cd_back_button">Back</string>
+    <string name="cd_delete_icon">Delete transaction</string>
+    <string name="card_add_earning">Add Earning</string>
+    <string name="card_add_expense">Add Expense</string>
+    <string name="card_this_week">This Week Summary</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_spent_on">What did you spend on?</string>
+    <string name="btn_add_earning">Add Earning</string>
+    <string name="btn_add_expense">Add Expense</string>
+    <string name="error_invalid_amount">Enter a valid amount greater than $0</string>
+    <string name="error_empty_item">Please enter what you spent on</string>
+    <string name="msg_earning_added">Earning added successfully!</string>
+    <string name="msg_expense_added">Expense added successfully!</string>
+    <string name="msg_transaction_deleted">Transaction deleted</string>
+    <string name="label_earned">Earned</string>
+    <string name="label_spent">Spent</string>
+    <string name="label_saved">Saved</string>
+    <string name="label_saving_rate">Saving Rate</string>
+    <string name="no_expenses_this_week">No expenses logged for this week</string>
 </resources>

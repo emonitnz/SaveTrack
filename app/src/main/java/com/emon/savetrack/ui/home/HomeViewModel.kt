@@ -1,19 +1,33 @@
 package com.emon.savetrack.ui.home
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.lifecycle.viewModelScope
+import com.emon.savetrack.data.local.TransactionType
+import com.emon.savetrack.data.repository.TransactionRepository
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 /**
- * ViewModel for the Home screen following MVVM architecture.
- * Manages HomeUiState using StateFlow.
+ * ViewModel for Home screen, calculating total savings dynamically from Room database transactions.
  */
-class HomeViewModel : ViewModel() {
+class HomeViewModel(repository: TransactionRepository) : ViewModel() {
 
-    // Internal state flow holding total savings state
-    private val _uiState = MutableStateFlow(HomeUiState(totalSavings = 1250.00))
-
-    // Public read-only state flow exposed to the UI
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    // Total savings state derived from all database transactions (Income - Expenses)
+    val uiState: StateFlow<HomeUiState> = repository.allTransactions
+        .map { transactions ->
+            val totalIncome = transactions
+                .filter { it.type == TransactionType.INCOME }
+                .sumOf { it.amount }
+            val totalExpenses = transactions
+                .filter { it.type == TransactionType.EXPENSE }
+                .sumOf { it.amount }
+            HomeUiState(totalSavings = totalIncome - totalExpenses)
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = HomeUiState(totalSavings = 0.0)
+        )
 }
