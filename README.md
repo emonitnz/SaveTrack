@@ -6,9 +6,7 @@ Built with **Kotlin** and **Jetpack Compose**, using **MVVM** and a local **Room
 
 ## Screenshots
 
-| Home | Add This Week | Weekly History |
-| :---: | :---: | :---: |
-| <img src="screenshots/home.png" width="250" alt="Home screen showing total savings"> | <img src="screenshots/add-this-week.png" width="250" alt="Add earnings and expenses with this week's summary"> | <img src="screenshots/weekly-history.png" width="250" alt="Weekly history with spent and saved percentages"> |
+<img width="100%" alt="SaveTrack screenshots: Home, Add This Week and Weekly History" src="https://github.com/user-attachments/assets/caf7efc6-e9b3-4352-8b17-0fc11bb629b7" />
 
 ## Features
 
@@ -29,6 +27,24 @@ Built with **Kotlin** and **Jetpack Compose**, using **MVVM** and a local **Room
 | Database | Room (SQLite) with Kotlin Flow |
 | Navigation | Navigation Compose |
 | Async | Kotlin Coroutines |
+
+## How it works
+
+I built SaveTrack using MVVM (Model, View, ViewModel). The idea is simple: each part of the app has one job and doesn't reach into the others.
+
+- **View (the screens):** `HomeScreen`, `AddWeekScreen` and `HistoryScreen` are written in Jetpack Compose. They only show data and pass taps and typing to the ViewModel. There's no maths or database code in them.
+- **ViewModel (the logic):** each screen has its own ViewModel. It checks the input, does the calculations (total savings, weekly totals, percentages) and keeps the screen's state in a `StateFlow`. Because ViewModels survive screen rotation, nothing you typed gets lost.
+- **Model (the data):** a Room database with one `transactions` table. The `TransactionRepository` is the only way in, so the ViewModels never talk to the database directly.
+
+Here's what happens when you add an expense:
+
+1. You type an amount and an item name, then tap **Add Expense**.
+2. `AddWeekViewModel` checks the amount is above $0 and the name isn't empty.
+3. It saves the expense through the repository, inside a coroutine so the screen never freezes.
+4. Room notices the table changed and sends the updated list through a `Flow`.
+5. All three ViewModels recalculate, and every screen updates on its own. There's no manual refresh anywhere.
+
+Weeks run from Monday to Sunday. `HistoryViewModel` finds the Monday of each entry's week, groups entries by that date, and works out earned, spent, saved and the percentages for each week.
 
 ## Architecture
 
